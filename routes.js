@@ -8,8 +8,9 @@ const bodyParser = require('body-parser');
  */
 function init(app, express, router) {
   app.use(bodyParser.json());
-  app.use('/api/',  apiRoutes(router));
+  app.use('/api/v1/',  apiRoutes(router));
 }
+
 /**
  *
  * @param router
