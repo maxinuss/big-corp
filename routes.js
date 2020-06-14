@@ -1,4 +1,5 @@
 const bodyParser = require('body-parser');
+const offices = require('./src/models/office');
 
 /**
  *
@@ -26,7 +27,6 @@ function apiRoutes(router) {
     res.status(200).json(result);
   });
 
-
   router.get('/employees', async (req, res) => {
     res.status(200).json();
   });
@@ -44,11 +44,13 @@ function apiRoutes(router) {
   });
 
   router.get('/offices', async (req, res) => {
-    res.status(200).json();
+    const response = await offices.getAll();
+    res.status(200).json(response);
   });
 
   router.get('/offices/:id', async (req, res) => {
-    res.status(200).json();
+    const response = await offices.getOne(req.params.id);
+    res.status(200).json(response);
   });
 
   return router;
