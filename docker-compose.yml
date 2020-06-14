@@ -7,7 +7,6 @@ services:
     container_name: big_corp_node_nusspaumer_container
     volumes:
       - .:/html
-      - node_modules:/html/node_modules
     ports:
       - "3058:3000"
     networks:
@@ -18,6 +17,5 @@ networks:
     name: nusspaumer-network
     driver: "bridge"
 volumes:
-  node_modules:
   data:
     driver: "local"
