@@ -1,0 +1,23 @@
+version: '3.7'
+
+services:
+  bc_node_nusspaumer:
+    build: .
+    command: bash -c "npm start"
+    container_name: big_corp_node_nusspaumer_container
+    volumes:
+      - .:/html
+      - node_modules:/html/node_modules
+    ports:
+      - "3058:3000"
+    networks:
+      - nusspaumer-network
+
+networks:
+  nusspaumer-network:
+    name: nusspaumer-network
+    driver: "bridge"
+volumes:
+  node_modules:
+  data:
+    driver: "local"
