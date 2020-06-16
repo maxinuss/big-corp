@@ -1,5 +1,6 @@
 const bodyParser = require('body-parser');
 const offices = require('./src/models/office');
+const departments = require('./src/models/department');
 
 /**
  *
@@ -36,11 +37,13 @@ function apiRoutes(router) {
   });
 
   router.get('/departments', async (req, res) => {
-    res.status(200).json();
+    const response = await departments.getAll(req.query.expand);
+    res.status(200).json(response);
   });
 
   router.get('/departments/:id', async (req, res) => {
-    res.status(200).json();
+    const response = await departments.getOne(req.params.id);
+    res.status(200).json(response);
   });
 
   router.get('/offices', async (req, res) => {
