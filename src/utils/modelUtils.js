@@ -2,6 +2,22 @@ const _ = require('lodash');
 
 /**
  *
+ * @param data
+ * @param limit
+ * @param offset
+ * @returns {any[]|*}
+ */
+module.exports.paginate = (data, limit, offset) => {
+    if (limit === 0 && offset === 0)
+        return data;
+
+    const dataClone = _.cloneDeep(data);
+
+    return dataClone.splice(offset, limit);
+};
+
+/**
+ *
  * @param entities
  * @param expand
  * @param targetEntity
@@ -28,6 +44,7 @@ const expand = (field, entities, targetEntity, immutableEntity) => {
             return entity;
         }
 
+        console.log('entity', entity);
         return {...entity, [field]: entities.find(({id}) => id === immutableEntity[i][field])}
     });
 }

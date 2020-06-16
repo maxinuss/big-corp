@@ -1,6 +1,7 @@
 const bodyParser = require('body-parser');
 const offices = require('./src/models/office');
 const departments = require('./src/models/department');
+const employees = require('./src/models/employee');
 
 /**
  *
@@ -29,30 +30,41 @@ function apiRoutes(router) {
   });
 
   router.get('/employees', async (req, res) => {
-    res.status(200).json();
+    const { limit, offset, expand } = req.query;
+    const response = await employees.getAll(limit, offset, expand);
+
+    res.status(200).json(response);
   });
 
   router.get('/employees/:id', async (req, res) => {
-    res.status(200).json();
+    const response = await employees.getOne(req.params.id);
+
+    res.status(200).json(response);
   });
 
   router.get('/departments', async (req, res) => {
-    const response = await departments.getAll(req.query.expand);
+    const { limit, offset, expand } = req.query;
+    const response = await departments.getAll(limit, offset, expand);
+
     res.status(200).json(response);
   });
 
   router.get('/departments/:id', async (req, res) => {
     const response = await departments.getOne(req.params.id);
+
     res.status(200).json(response);
   });
 
   router.get('/offices', async (req, res) => {
-    const response = await offices.getAll();
+    const { limit, offset } = req.query;
+    const response = await offices.getAll(limit, offset);
+
     res.status(200).json(response);
   });
 
   router.get('/offices/:id', async (req, res) => {
     const response = await offices.getOne(req.params.id);
+
     res.status(200).json(response);
   });
 
